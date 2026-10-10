@@ -8,10 +8,13 @@ import Button from '@/components/ui/Button'
 import EmptyState from '@/components/ui/EmptyState'
 import { colors, radius, spacing } from '@/theme/tokens'
 import { formatKoreanDate, greetingByTime } from '@/lib/date'
+import { useProfile } from '@/features/profile/useProfile'
 
 // 아직 데이터가 연결되지 않아서 모든 카드가 "빈 상태"로 보여요. (6단계에서 연결)
 export default function HomeScreen() {
   const progress = 0 // 0 ~ 1
+  const { profile } = useProfile()
+  const name = profile?.nickname ? `${profile.nickname}님, ` : ''
 
   return (
     <Screen>
@@ -20,6 +23,7 @@ export default function HomeScreen() {
         <View style={{ flex: 1 }}>
           <AppText variant="caption">{formatKoreanDate()}</AppText>
           <AppText variant="title" style={{ marginTop: 4 }}>
+            {name}
             {greetingByTime()} 👋
           </AppText>
         </View>

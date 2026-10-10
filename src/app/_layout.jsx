@@ -1,24 +1,54 @@
+import { useEffect } from 'react'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import * as SplashScreen from 'expo-splash-screen'
+import { AuthProvider, useAuth } from '@/contexts/AuthContext'
+import { isSupabaseConfigured } from '@/lib/supabase'
+import ConfigMissing from '@/components/ConfigMissing'
 import { colors } from '@/theme/tokens'
 
-// 앱의 가장 바깥 레이아웃.
-// Stack: 화면이 카드처럼 위로 쌓이는 네비게이션 (설정 화면이 오른쪽에서 밀려 들어옴)
-// (tabs): 괄호 폴더는 "그룹"이라 주소에 나타나지 않아요. 하단 탭 4개가 이 안에 있어요.
+// 로그인 상태를 확인하는 동안 스플래시 화면(앱 로고)을 계속 띄워둬요.
+// 안 그러면 로그인 화면이 잠깐 번쩍 보였다가 홈으로 넘어가는 깜빡임이 생겨요.
+SplashScreen.preventAutoHideAsync()
+
 export default function RootLayout() {
   return (
-    <>
+    <AuthProvider>
       <StatusBar style="dark" />
-      <Stack
-        screenOptions={{
-          headerTintColor: colors.gray900,
-          headerBackButtonDisplayMode: 'minimal',
-          contentStyle: { backgroundColor: colors.gray50 },
-        }}
-      >
+      {isSupabaseConfigured ? <RootNavigator /> : <ConfigMissing />}
+    </AuthProvider>
+  )
+}
+
+function RootNavigator() {
+  const { session, loading } = useAuth()
+
+  useEffect(() => {
+    if (!loading) SplashScreen.hideAsync()
+  }, [loading])
+
+  if (loading) return null
+
+  const isLoggedIn = Boolean(session)
+
+  // Stack.Protected: guard가 false인 화면 그룹은 아예 접근할 수 없어요.
+  // 로그인 상태가 바뀌면 Expo Router가 알아서 맞는 화면으로 보내줘요.
+  return (
+    <Stack
+      screenOptions={{
+        headerTintColor: colors.gray900,
+        headerBackButtonDisplayMode: 'minimal',
+        contentStyle: { backgroundColor: colors.gray50 },
+      }}
+    >
+      <Stack.Protected guard={isLoggedIn}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="settings" options={{ title: '설정' }} />
-      </Stack>
-    </>
+      </Stack.Protected>
+
+      <Stack.Protected guard={!isLoggedIn}>
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      </Stack.Protected>
+    </Stack>
   )
 }
