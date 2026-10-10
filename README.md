@@ -1,56 +1,40 @@
-# Welcome to your Expo app 👋
+# GrowDay (오늘도 성장 중)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+기록하면 AI가 작은 실천 과제를 추천해 주는 자기관리 iOS 앱.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 실행
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+터미널에 뜨는 QR 코드를 아이폰 카메라로 찍으면 Expo Go에서 앱이 열려요.
+(맥과 아이폰이 같은 Wi-Fi에 있어야 해요)
 
-### Other setup steps
+## 기술 스택
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Expo SDK 57 · React Native · Expo Router · JavaScript · Supabase(예정) · Gemini API(예정)
 
-## Learn more
+## 폴더 구조
 
-To learn more about developing your project with Expo, look at the following resources:
+```
+src/
+├─ app/                  # 화면 (파일 이름 = 화면 주소)
+│  ├─ _layout.jsx        # 루트: Stack 네비게이션
+│  ├─ (tabs)/            # 하단 탭 4개 (홈, 기록, 목표, 리포트)
+│  └─ settings.jsx
+├─ components/ui/        # 재사용 UI 부품 (Button, Card, Screen ...)
+├─ theme/tokens.js       # 디자인 토큰 (색, 간격, 모서리, 글자)
+└─ lib/date.js           # 날짜 유틸
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 진행 상황
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [x] 4단계: Expo 프로젝트, 탭 네비게이션, 디자인 토큰, 공통 UI 컴포넌트
+- [ ] 5단계: Supabase 인증 + DB
+- [ ] 6단계: 목표 관리 + 홈 대시보드
+- [ ] 7단계: 일일 기록
+- [ ] 8단계: 리포트(통계)
+- [ ] 9단계: AI 코치
+- [ ] 10단계: TestFlight + App Store
