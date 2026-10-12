@@ -20,6 +20,18 @@ export async function fetchLog(date) {
   );
 }
 
+// 기간 안의 기록들 (리포트용)
+export async function fetchLogs(fromDate, toDate) {
+  return unwrap(
+    await supabase
+      .from("daily_logs")
+      .select(LOG_FIELDS)
+      .gte("date", fromDate)
+      .lte("date", toDate)
+      .order("date"),
+  );
+}
+
 // 저장: 하루에 1행이라 upsert (있으면 수정, 없으면 추가)
 // 모든 항목이 비어 있으면 그 날 기록을 지워요 (= 기록 없음)
 export async function saveLog(userId, date, values) {

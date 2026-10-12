@@ -23,15 +23,15 @@ export async function fetchGoal(id) {
   );
 }
 
-// fromDate 이후의 완료 체크들
-export async function fetchChecks(fromDate) {
-  return unwrap(
-    await supabase
-      .from("goal_checks")
-      .select("goal_id, date")
-      .gte("date", fromDate)
-      .eq("completed", true),
-  );
+// fromDate ~ toDate 사이의 완료 체크들 (toDate를 안 주면 fromDate 이후 전부)
+export async function fetchChecks(fromDate, toDate) {
+  let query = supabase
+    .from("goal_checks")
+    .select("goal_id, date")
+    .gte("date", fromDate)
+    .eq("completed", true);
+  if (toDate) query = query.lte("date", toDate);
+  return unwrap(await query);
 }
 
 // user_id는 안 보내도 돼요. DB의 기본값(auth.uid())이 알아서 채워요.

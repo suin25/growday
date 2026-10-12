@@ -10,7 +10,8 @@ import MoodPicker from "@/features/logs/MoodPicker";
 import { useDailyLog } from "@/features/logs/useDailyLog";
 import { toDateString } from "@/lib/date";
 import { spacing } from "@/theme/tokens";
-import { useRef, useState } from "react";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Keyboard, StyleSheet, View } from "react-native";
 
 export default function LogScreen() {
@@ -29,6 +30,20 @@ export default function LogScreen() {
   } = useDailyLog(date);
 
   const scrollRef = useRef(null);
+
+  // 리포트의 "하루씩 보기"에서 /log?date=2026-10-12&t=... 로 들어오면 그 날짜를 열어요
+  // t는 누를 때마다 바뀌는 값이라, 같은 날짜를 다시 눌러도 다시 열려요
+  const params = useLocalSearchParams();
+  useEffect(() => {
+    const d = params.date;
+    if (
+      typeof d === "string" &&
+      /^\d{4}-\d{2}-\d{2}$/.test(d) &&
+      d <= toDateString()
+    ) {
+      changeDate(d);
+    }
+  }, [params.date, params.t]);
 
   // 메모 칸을 누르면 화면 맨 아래(메모 칸 + 저장 버튼)까지 스크롤해요.
   // keyboardWillShow: 키보드가 올라오기 "시작할 때" 바로 스크롤 → 키보드와 화면이 함께 올라가요
