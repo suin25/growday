@@ -6,6 +6,7 @@ import Screen from "@/components/ui/Screen";
 import { ErrorState, SkeletonList } from "@/components/ui/States";
 import GoalCheckItem from "@/features/goals/GoalCheckItem";
 import { useGoals } from "@/features/goals/useGoals";
+import TodayLogSummary from "@/features/logs/TodayLogSummary";
 import { useProfile } from "@/features/profile/useProfile";
 import { formatKoreanDate, greetingByTime, toDateString } from "@/lib/date";
 import { isScheduledOn } from "@/lib/goals";
@@ -111,7 +112,7 @@ export default function HomeScreen() {
           </View>
         )}
       </Card>
-
+      <TodayLogSummary />
       <Card style={styles.aiCard}>
         <View style={styles.aiRow}>
           <Ionicons name="sparkles" size={20} color={colors.primary600} />

@@ -45,3 +45,9 @@ export function lastNDates(n, end = new Date()) {
 }
 
 export const WEEKDAY_LABELS = WEEKDAYS;
+
+// "2026-10-12" → "10월 12일 (월)"
+export function formatShortDate(dateStr) {
+  const d = parseDateString(dateStr);
+  return `${d.getMonth() + 1}월 ${d.getDate()}일 (${WEEKDAYS[d.getDay()]})`;
+}
