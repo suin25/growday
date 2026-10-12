@@ -1,3 +1,5 @@
+import CoachCard from "@/features/coach/CoachCard";
+import { AI_ENABLED } from "@/lib/features";
 import AppText from "@/components/ui/AppText";
 import Button from "@/components/ui/Button";
 import Card, { CardTitle } from "@/components/ui/Card";
@@ -113,17 +115,7 @@ export default function HomeScreen() {
         )}
       </Card>
       <TodayLogSummary />
-      <Card style={styles.aiCard}>
-        <View style={styles.aiRow}>
-          <Ionicons name="sparkles" size={20} color={colors.primary600} />
-          <View style={{ flex: 1 }}>
-            <AppText style={styles.aiTitle}>오늘의 한 가지</AppText>
-            <AppText style={styles.aiBody}>
-              며칠 기록이 쌓이면 AI가 오늘 실천할 작은 과제를 추천해 줄게요.
-            </AppText>
-          </View>
-        </View>
-      </Card>
+      {AI_ENABLED && <CoachCard type="daily" targetDate={today} />}
     </Screen>
   );
 }
@@ -151,8 +143,4 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary500,
     borderRadius: radius.full,
   },
-  aiCard: { backgroundColor: colors.primary50, borderColor: colors.primary100 },
-  aiRow: { flexDirection: "row", gap: spacing.md },
-  aiTitle: { fontSize: 14, fontWeight: "600", color: colors.primary700 },
-  aiBody: { fontSize: 14, color: colors.gray600, marginTop: 4, lineHeight: 20 },
 });

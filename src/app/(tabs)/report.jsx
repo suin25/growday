@@ -1,3 +1,4 @@
+import CoachCard from "@/features/coach/CoachCard";
 import AppText from "@/components/ui/AppText";
 import Card from "@/components/ui/Card";
 import EmptyState from "@/components/ui/EmptyState";
@@ -6,14 +7,15 @@ import { ErrorState, SkeletonList } from "@/components/ui/States";
 import { MOODS, formatMinutes } from "@/features/logs/logForm";
 import BarChart from "@/features/report/BarChart";
 import StatTile from "@/features/report/StatTile";
-import WeekNav from "@/features/report/WeekNav";
 import { useWeekReport } from "@/features/report/useWeekReport";
+import WeekNav from "@/features/report/WeekNav";
 import {
   WEEKDAY_LABELS,
   formatShortDate,
   parseDateString,
   toDateString,
 } from "@/lib/date";
+import { AI_ENABLED } from "@/lib/features";
 import { CATEGORIES } from "@/lib/goals";
 import { startOfWeek } from "@/lib/report";
 import { colors, radius, spacing } from "@/theme/tokens";
@@ -237,17 +239,7 @@ function ReportBody({ report }) {
           ))}
       </Card>
 
-      <Card style={styles.aiCard}>
-        <View style={{ flexDirection: "row", gap: spacing.md }}>
-          <Ionicons name="sparkles" size={20} color={colors.primary600} />
-          <View style={{ flex: 1 }}>
-            <AppText style={styles.aiTitle}>AI 주간 피드백</AppText>
-            <AppText style={styles.aiBody}>
-              이번 주 기록을 바탕으로 한 피드백이 여기에 생길 거예요. (9단계)
-            </AppText>
-          </View>
-        </View>
-      </Card>
+      {AI_ENABLED && <CoachCard type="weekly" targetDate={dates[0]} />}
     </>
   );
 }
@@ -322,7 +314,4 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.gray100,
   },
-  aiCard: { backgroundColor: colors.primary50, borderColor: colors.primary100 },
-  aiTitle: { fontSize: 14, fontWeight: "600", color: colors.primary700 },
-  aiBody: { fontSize: 14, color: colors.gray600, marginTop: 4, lineHeight: 20 },
 });
