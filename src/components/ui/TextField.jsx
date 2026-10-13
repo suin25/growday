@@ -10,6 +10,7 @@ import AppText from "./AppText";
 export default function TextField({
   label,
   error,
+  hint,
   style,
   onFocus,
   onBlur,
@@ -60,7 +61,11 @@ export default function TextField({
           </Pressable>
         )}
       </View>
-      {error && <AppText style={styles.error}>{error}</AppText>}
+      {error ? (
+        <AppText style={styles.error}>{error}</AppText>
+      ) : hint ? (
+        <AppText style={styles.hint}>{hint}</AppText>
+      ) : null}
     </View>
   );
 }
@@ -97,4 +102,5 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
   error: { fontSize: 13, color: colors.error },
+  hint: { fontSize: 13, color: colors.gray500 },
 });

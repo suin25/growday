@@ -1,33 +1,45 @@
+import { useState } from "react";
+import { Link, router } from "expo-router";
 import AuthForm from "@/components/AuthForm";
-import AppText from "@/components/ui/AppText";
-import Button from "@/components/ui/Button";
 import TextField from "@/components/ui/TextField";
+import Button from "@/components/ui/Button";
+import AppText from "@/components/ui/AppText";
+import CheckRow from "@/components/ui/CheckRow";
+import { PASSWORD_HINT, validatePassword } from "@/features/auth/password";
 import { supabase, toKoreanAuthError } from "@/lib/supabase";
 import { colors } from "@/theme/tokens";
-import { Link, router } from "expo-router";
-import { useState } from "react";
 
 // 입력값 검사: 서버에 보내기 전에 앱에서 먼저 걸러내요 (빠른 피드백)
-function validate({ nickname, email, password }) {
+function validate({ nickname, email, password, over14 }) {
   const errors = {};
   if (!nickname.trim()) errors.nickname = "닉네임을 입력해 주세요.";
   else if (nickname.trim().length > 20)
     errors.nickname = "닉네임은 20자 이하로 해 주세요.";
   if (!/^\S+@\S+\.\S+$/.test(email.trim()))
     errors.email = "이메일 형식을 확인해 주세요.";
-  if (password.length < 6) errors.password = "비밀번호는 6자 이상이어야 해요.";
+  const pwError = validatePassword(password);
+  if (pwError) errors.password = pwError;
+  // 만 14세 미만은 법정대리인 동의 절차가 필요해서, 지금은 14세 이상만 가입할 수 있어요
+  if (!over14) errors.over14 = "만 14세 이상만 가입할 수 있어요.";
   return errors;
 }
 
 export default function SignupScreen() {
-  const [form, setForm] = useState({ nickname: "", email: "", password: "" });
+  const [form, setForm] = useState({
+    nickname: "",
+    email: "",
+    password: "",
+    over14: false,
+  });
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 객체 state 중 한 칸만 바꾸는 헬퍼
-  const update = (key) => (value) =>
+  // 객체 state 중 한 칸만 바꾸는 헬퍼 (고치는 칸의 에러 문구는 바로 지워요)
+  const update = (key) => (value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
+    setErrors((prev) => ({ ...prev, [key]: undefined }));
+  };
 
   async function handleSignup() {
     // 이전 시도의 서버 에러는 먼저 지워요 (안 지우면 새 입력 에러와 같이 보여요)
@@ -49,8 +61,6 @@ export default function SignupScreen() {
       setServerError(toKoreanAuthError(error));
       return;
     }
-    // 이메일 인증이 켜져 있으면 session이 없어요 → 메일 확인 안내
-    // 꺼져 있으면 session이 바로 생기고 자동으로 홈으로 이동해요
     // 이메일 인증이 켜져 있으면 session이 없어요 → 인증 코드 입력 화면으로
     // 꺼져 있으면 session이 바로 생기고 자동으로 홈으로 이동해요
     if (!data.session) {
@@ -105,10 +115,20 @@ export default function SignupScreen() {
         label="비밀번호"
         value={form.password}
         onChangeText={update("password")}
-        placeholder="6자 이상"
+        placeholder="8자 이상"
+        hint={PASSWORD_HINT}
         secureTextEntry
         textContentType="newPassword"
+        keyboardType="ascii-capable" // iOS: 영문 키보드만 (한글 전환 없음)
+        autoCapitalize="none"
+        autoCorrect={false}
         error={errors.password}
+      />
+      <CheckRow
+        checked={form.over14}
+        onChange={update("over14")}
+        label="만 14세 이상입니다"
+        error={errors.over14}
       />
       {serverError && (
         <AppText style={{ color: colors.error, fontSize: 14 }}>

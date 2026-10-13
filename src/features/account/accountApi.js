@@ -28,7 +28,9 @@ export async function changePassword(email, currentPassword, newPassword) {
     if (error.code === "same_password")
       throw new Error("지금과 다른 비밀번호를 입력해 주세요.");
     if (error.code === "weak_password")
-      throw new Error("더 안전한 비밀번호를 입력해 주세요.");
+      throw new Error(
+        "비밀번호는 8자 이상, 영문 대문자·소문자·숫자·특수문자를 포함해야 해요.",
+      );
     throw new Error("비밀번호를 바꾸지 못했어요. 잠시 후 다시 시도해 주세요.");
   }
 }

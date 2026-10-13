@@ -36,7 +36,8 @@ const AUTH_ERROR_MESSAGES = {
   email_not_confirmed: "이메일 인증을 먼저 완료해 주세요.",
   user_already_exists: "이미 가입된 이메일이에요.",
   email_exists: "이미 가입된 이메일이에요.",
-  weak_password: "비밀번호는 6자 이상이어야 해요.",
+  weak_password:
+    "비밀번호는 8자 이상, 영문 대문자·소문자·숫자·특수문자를 포함해야 해요.",
   otp_expired: "인증 코드가 맞지 않거나 만료됐어요. 새 코드를 받아 주세요.",
   over_email_send_rate_limit:
     "메일을 너무 자주 요청했어요. 잠시 후 다시 시도해 주세요.",
@@ -59,7 +60,7 @@ export function toKoreanAuthError(error) {
   if (msg.includes("Network") || msg.includes("fetch"))
     return "인터넷 연결을 확인해 주세요.";
   if (msg.toLowerCase().includes("password"))
-    return "비밀번호는 6자 이상이어야 해요.";
+    return AUTH_ERROR_MESSAGES.weak_password;
   if (msg.toLowerCase().includes("email"))
     return "이메일 형식을 확인해 주세요.";
   return "문제가 생겼어요. 잠시 후 다시 시도해 주세요.";

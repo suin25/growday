@@ -13,6 +13,7 @@ import {
   sendResetCode,
 } from "@/features/auth/authApi";
 import { colors, spacing } from "@/theme/tokens";
+import { PASSWORD_HINT, validatePassword } from "@/features/auth/password";
 
 // 비밀번호 찾기: ① 이메일 입력 → 코드 발송  ② 코드 + 새 비밀번호 입력
 export default function ForgotPasswordScreen() {
@@ -43,7 +44,8 @@ export default function ForgotPasswordScreen() {
   async function handleReset() {
     const e = {};
     if (!isValidCode(code)) e.code = "메일로 받은 숫자 코드를 입력해 주세요.";
-    if (password.length < 6) e.password = "새 비밀번호는 6자 이상이어야 해요.";
+    const pwError = validatePassword(password);
+    if (pwError) e.password = pwError;
     setErrors(e);
     if (Object.keys(e).length) return;
     setLoading(true);
@@ -121,9 +123,13 @@ export default function ForgotPasswordScreen() {
           setPassword(v);
           setErrors((p) => ({ ...p, password: undefined }));
         }}
-        placeholder="6자 이상"
+        placeholder="8자 이상"
+        hint={PASSWORD_HINT}
         secureTextEntry
         textContentType="newPassword"
+        keyboardType="ascii-capable"
+        autoCapitalize="none"
+        autoCorrect={false}
         error={errors.password}
       />
       <Button title="비밀번호 바꾸기" onPress={handleReset} loading={loading} />

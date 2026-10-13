@@ -7,6 +7,7 @@ import TextField from "@/components/ui/TextField";
 import { useAuth } from "@/contexts/AuthContext";
 import { changePassword } from "@/features/account/accountApi";
 import { colors, spacing } from "@/theme/tokens";
+import { PASSWORD_HINT, validatePassword } from "@/features/auth/password";
 
 export default function ChangePasswordScreen() {
   const { user } = useAuth();
@@ -21,7 +22,8 @@ export default function ChangePasswordScreen() {
   async function handleSave() {
     const e = {};
     if (!form.current) e.current = "현재 비밀번호를 입력해 주세요.";
-    if (form.next.length < 6) e.next = "새 비밀번호는 6자 이상이어야 해요.";
+    const pwError = validatePassword(form.next);
+    if (pwError) e.next = pwError;
     else if (form.next === form.current)
       e.next = "지금과 다른 비밀번호를 입력해 주세요.";
     if (form.confirm !== form.next) e.confirm = "새 비밀번호가 서로 달라요.";
@@ -68,9 +70,13 @@ export default function ChangePasswordScreen() {
           label="새 비밀번호"
           value={form.next}
           onChangeText={update("next")}
-          placeholder="6자 이상"
+          placeholder="8자 이상"
+          hint={PASSWORD_HINT}
           secureTextEntry
           textContentType="newPassword"
+          keyboardType="ascii-capable"
+          autoCapitalize="none"
+          autoCorrect={false}
           error={errors.next}
         />
         <TextField
@@ -78,6 +84,9 @@ export default function ChangePasswordScreen() {
           value={form.confirm}
           onChangeText={update("confirm")}
           secureTextEntry
+          keyboardType="ascii-capable"
+          autoCapitalize="none"
+          autoCorrect={false}
           textContentType="newPassword"
           error={errors.confirm}
         />
