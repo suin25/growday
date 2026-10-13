@@ -1,7 +1,6 @@
 import AuthForm from "@/components/AuthForm";
 import AppText from "@/components/ui/AppText";
 import Button from "@/components/ui/Button";
-import Card from "@/components/ui/Card";
 import TextField from "@/components/ui/TextField";
 import { supabase, toKoreanAuthError } from "@/lib/supabase";
 import { colors } from "@/theme/tokens";
@@ -25,18 +24,18 @@ export default function SignupScreen() {
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [needsConfirm, setNeedsConfirm] = useState(false);
 
   // 객체 state 중 한 칸만 바꾸는 헬퍼
   const update = (key) => (value) =>
     setForm((prev) => ({ ...prev, [key]: value }));
 
   async function handleSignup() {
+    // 이전 시도의 서버 에러는 먼저 지워요 (안 지우면 새 입력 에러와 같이 보여요)
+    setServerError(null);
     const v = validate(form);
     setErrors(v);
     if (Object.keys(v).length > 0) return;
 
-    setServerError(null);
     setLoading(true);
     const { data, error } = await supabase.auth.signUp({
       email: form.email.trim(),
@@ -52,26 +51,14 @@ export default function SignupScreen() {
     }
     // 이메일 인증이 켜져 있으면 session이 없어요 → 메일 확인 안내
     // 꺼져 있으면 session이 바로 생기고 자동으로 홈으로 이동해요
-    if (!data.session) setNeedsConfirm(true);
-  }
-
-  if (needsConfirm) {
-    return (
-      <AuthForm
-        title="메일함을 확인해 주세요"
-        subtitle={`${form.email}로 인증 메일을 보냈어요.`}
-      >
-        <Card>
-          <AppText variant="caption">
-            메일의 링크를 누른 뒤, 돌아와서 로그인해 주세요.
-          </AppText>
-        </Card>
-        <Button
-          title="로그인하러 가기"
-          onPress={() => router.replace("/login")}
-        />
-      </AuthForm>
-    );
+    // 이메일 인증이 켜져 있으면 session이 없어요 → 인증 코드 입력 화면으로
+    // 꺼져 있으면 session이 바로 생기고 자동으로 홈으로 이동해요
+    if (!data.session) {
+      router.replace({
+        pathname: "/verify-email",
+        params: { email: form.email.trim(), sent: "1" },
+      });
+    }
   }
 
   return (
