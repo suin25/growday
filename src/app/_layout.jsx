@@ -46,6 +46,10 @@ function RootNavigator() {
         <Stack.Screen name="settings" options={{ title: "설정" }} />
         {/* presentation: 'modal' → iOS에서 아래에서 올라오는 시트. 아래로 쓸어내려 닫을 수 있어요 */}
         <Stack.Screen name="goal-form" options={{ presentation: "modal" }} />
+        <Stack.Screen
+          name="change-password"
+          options={{ presentation: "modal" }}
+        />
       </Stack.Protected>
 
       <Stack.Protected guard={!isLoggedIn}>

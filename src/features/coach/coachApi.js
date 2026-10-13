@@ -1,6 +1,6 @@
 import { toDateString } from "@/lib/date";
 import { supabase } from "@/lib/supabase";
-import { FunctionsHttpError } from "@supabase/supabase-js";
+import { describeFunctionError } from "@/lib/functionError";
 
 // 이미 만들어진 피드백이 있으면 DB에서 바로 읽어요 (AI 호출 없음, 횟수 차감 없음)
 export async function fetchSavedFeedback(type, targetDate) {
@@ -28,13 +28,6 @@ export async function requestFeedback({ type, weekStart, regenerate = false }) {
       regenerate,
     },
   });
-  if (error) {
-    // 서버가 보낸 한국어 에러 메시지를 꺼내요
-    if (error instanceof FunctionsHttpError) {
-      const body = await error.context.json().catch(() => null);
-      throw new Error(body?.error ?? "AI 추천을 받지 못했어요.");
-    }
-    throw new Error("인터넷 연결을 확인하고 다시 시도해 주세요.");
-  }
+  if (error) throw new Error(await describeFunctionError(error, "ai-coach"));
   return data; // { feedback, cached, empty? }
 }
