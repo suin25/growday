@@ -7,6 +7,7 @@ import AppText from "@/components/ui/AppText";
 import CheckRow from "@/components/ui/CheckRow";
 import { PASSWORD_HINT, validatePassword } from "@/features/auth/password";
 import { supabase, toKoreanAuthError } from "@/lib/supabase";
+import { openPrivacyPolicy } from "@/lib/links";
 import { colors } from "@/theme/tokens";
 
 // 입력값 검사: 서버에 보내기 전에 앱에서 먼저 걸러내요 (빠른 피드백)
@@ -136,6 +137,19 @@ export default function SignupScreen() {
         </AppText>
       )}
       <Button title="가입하기" onPress={handleSignup} loading={loading} />
+      {/* 서비스 이용에 꼭 필요한 정보라 별도 동의 대신 처리방침을 안내해요 (개인정보 보호법 제15조 제1항 제4호) */}
+      <AppText variant="caption" style={{ textAlign: "center" }}>
+        가입하면{" "}
+        <AppText
+          variant="caption"
+          onPress={openPrivacyPolicy}
+          accessibilityRole="link"
+          style={{ color: colors.primary600, textDecorationLine: "underline" }}
+        >
+          개인정보처리방침
+        </AppText>
+        에 따라 개인정보가 처리돼요.
+      </AppText>
     </AuthForm>
   );
 }

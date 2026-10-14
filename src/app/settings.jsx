@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { openPrivacyPolicy } from "@/lib/links";
 import {
   ActivityIndicator,
   Alert,
@@ -127,6 +128,19 @@ export default function SettingsScreen() {
           >
             <AppText>비밀번호 변경</AppText>
             <Ionicons name="chevron-forward" size={18} color={colors.gray300} />
+          </Pressable>
+        </Card>
+      </Section>
+
+      <Section title="정보">
+        <Card style={{ paddingVertical: spacing.sm }}>
+          <Pressable
+            onPress={openPrivacyPolicy}
+            style={styles.row}
+            accessibilityRole="link"
+          >
+            <AppText>개인정보처리방침</AppText>
+            <Ionicons name="open-outline" size={18} color={colors.gray300} />
           </Pressable>
         </Card>
       </Section>
