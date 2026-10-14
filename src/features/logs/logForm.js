@@ -74,6 +74,16 @@ export function isEmptyLog(values) {
   return Object.values(values).every((v) => v == null);
 }
 
+// 서버에서 새로 받아온 값(fresh)을 입력 중인 값(form)에 합치기
+// - 사용자가 손대지 않은 칸(form === 예전 저장값)은 새 값으로 바꿔요 (예: 타이머가 더한 공부 시간)
+// - 사용자가 고치고 있는 칸은 그대로 둬요
+export function mergeFresh(form, oldSaved, fresh) {
+  const out = {};
+  for (const k of Object.keys(fresh))
+    out[k] = form[k] === oldSaved[k] ? fresh[k] : form[k];
+  return out;
+}
+
 // 바뀐 게 있는지 비교 (저장 버튼 활성화용)
 export function isSameForm(a, b) {
   return JSON.stringify(a) === JSON.stringify(b);

@@ -1,7 +1,8 @@
 import ConfigMissing from "@/components/ConfigMissing";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { TimerProvider } from "@/contexts/TimerContext";
 import { isSupabaseConfigured } from "@/lib/supabase";
-import { colors } from "@/theme/tokens";
+import { colors, focusColors } from "@/theme/tokens";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -15,7 +16,14 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <StatusBar style="dark" />
-      {isSupabaseConfigured ? <RootNavigator /> : <ConfigMissing />}
+      {isSupabaseConfigured ? (
+        // 타이머는 어느 화면에 있든 계속 흘러가야 해서 앱 전체를 감싸요
+        <TimerProvider>
+          <RootNavigator />
+        </TimerProvider>
+      ) : (
+        <ConfigMissing />
+      )}
     </AuthProvider>
   );
 }
@@ -49,6 +57,16 @@ function RootNavigator() {
         <Stack.Screen
           name="change-password"
           options={{ presentation: "modal" }}
+        />
+        {/* 집중 화면: 탭 바까지 덮는 전체 화면, 부드럽게 나타나기 */}
+        <Stack.Screen
+          name="focus"
+          options={{
+            presentation: "fullScreenModal",
+            animation: "fade",
+            headerShown: false,
+            contentStyle: { backgroundColor: focusColors.bg },
+          }}
         />
       </Stack.Protected>
 

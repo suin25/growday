@@ -1,6 +1,13 @@
 import { useAuth } from "@/contexts/AuthContext";
-import { useCallback, useEffect, useState } from "react";
-import { emptyForm, formToLog, isSameForm, logToForm } from "./logForm";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import {
+  emptyForm,
+  formToLog,
+  isSameForm,
+  logToForm,
+  mergeFresh,
+} from "./logForm";
 import { fetchLog, saveLog } from "./logsApi";
 
 // 특정 날짜의 기록을 불러오고, 입력값(form)과 저장 기능을 제공하는 훅
@@ -13,6 +20,12 @@ export function useDailyLog(date) {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
   const [saving, setSaving] = useState(false);
+  // 최신 값을 콜백 안에서 읽기 위한 ref
+  const formRef = useRef(form);
+  const savedRef = useRef(saved);
+  formRef.current = form;
+  savedRef.current = saved;
+  const focusedOnce = useRef(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -35,6 +48,31 @@ export function useDailyLog(date) {
   useEffect(() => {
     load();
   }, [load]);
+
+  // 탭으로 다시 돌아올 때: 다른 곳(타이머 등)에서 바뀐 값을 조용히 반영해요
+  // 로딩 표시 없이, 사용자가 고치고 있는 칸은 건드리지 않아요
+  const refreshQuiet = useCallback(async () => {
+    try {
+      const log = await fetchLog(date);
+      const fresh = logToForm(log);
+      setForm(mergeFresh(formRef.current, savedRef.current, fresh));
+      setSaved(fresh);
+      setHasRecord(Boolean(log));
+    } catch {
+      // 조용한 새로고침이라 실패해도 그대로 둬요
+    }
+  }, [date]);
+
+  useFocusEffect(
+    useCallback(() => {
+      // 처음 화면이 열릴 때는 위의 load()가 불러오니까 건너뛰어요
+      if (!focusedOnce.current) {
+        focusedOnce.current = true;
+        return;
+      }
+      refreshQuiet();
+    }, [refreshQuiet]),
+  );
 
   // 한 칸만 바꾸기 + 그 칸의 오류 메시지 지우기
   const setField = useCallback((key, value) => {
