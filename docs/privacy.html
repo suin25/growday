@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GrowDay 개인정보처리방침</title>
+<meta name="description" content="GrowDay(오늘도 성장 중) 앱의 개인정보처리방침">
+<style>
+  :root {
+    --bg: #ffffff; --text: #101828; --sub: #475467; --line: #eaecf0;
+    --soft: #f9fafb; --accent: #039855; --todo-bg: #fef0c7; --todo-text: #93370d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1210; --text: #e6f2ec; --sub: #a3b3ad; --line: #22302b;
+      --soft: #111a17; --accent: #32d583; --todo-bg: #4e1d09; --todo-text: #fec84b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    font-size: 16px; line-height: 1.7; word-break: keep-all; overflow-wrap: anywhere;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; line-height: 1.3; margin: 0 0 8px; }
+  h2 { font-size: 19px; margin: 40px 0 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+  p, li { color: var(--text); }
+  .meta { color: var(--sub); font-size: 14px; margin: 0 0 24px; }
+  .intro { background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .toc { padding-left: 20px; color: var(--sub); font-size: 15px; }
+  .toc a { color: inherit; }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; margin: 8px 0; }
+  th, td { border: 1px solid var(--line); padding: 10px; text-align: left; vertical-align: top; }
+  th { background: var(--soft); white-space: nowrap; }
+  .note { color: var(--sub); font-size: 14px; }
+  a { color: var(--accent); }
+  /* 공개 전에 직접 채워야 하는 칸 (다 채운 뒤 class="todo"를 지워도 돼요) */
+  .todo { background: var(--todo-bg); color: var(--todo-text); padding: 0 4px; border-radius: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>GrowDay 개인정보처리방침</h1>
+  <p class="meta">시행일: <span class="todo">2026년 ○월 ○일</span></p>
+
+  <p class="intro">
+    GrowDay(오늘도 성장 중, 이하 “앱”)를 개발·운영하는 개인 개발자 <span class="todo">[운영자 성명]</span>(이하 “운영자”)은
+    「개인정보 보호법」에 따라 이용자의 개인정보를 보호하고 관련 고충을 원활하게 처리하기 위해 다음과 같이 개인정보처리방침을 둡니다.
+    운영자는 앱 운영에 꼭 필요한 정보만 처리하며, 이용자의 정보를 광고나 마케팅에 쓰지 않고 판매하지 않습니다.
+  </p>
+
+  <ol class="toc">
+    <li><a href="#items">처리하는 개인정보 항목</a></li>
+    <li><a href="#purpose">개인정보의 처리 목적과 근거</a></li>
+    <li><a href="#period">처리 및 보유 기간</a></li>
+    <li><a href="#destroy">파기 절차와 방법</a></li>
+    <li><a href="#third">제3자 제공</a></li>
+    <li><a href="#outsource">처리 위탁</a></li>
+    <li><a href="#transfer">국외 이전</a></li>
+    <li><a href="#rights">이용자의 권리와 행사 방법</a></li>
+    <li><a href="#security">안전성 확보 조치</a></li>
+    <li><a href="#device">기기 저장, 쿠키 및 기기 권한</a></li>
+    <li><a href="#auto">자동화된 결정과 AI 기능</a></li>
+    <li><a href="#child">만 14세 미만 아동</a></li>
+    <li><a href="#officer">개인정보 보호책임자</a></li>
+    <li><a href="#remedy">권익침해 구제 방법</a></li>
+    <li><a href="#change">처리방침의 변경</a></li>
+  </ol>
+
+  <h2 id="items">1. 처리하는 개인정보 항목</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>구분</th><th>항목</th><th>수집 방법</th></tr>
+      <tr>
+        <td>회원가입 (필수)</td>
+        <td>이메일 주소, 비밀번호, 닉네임</td>
+        <td>이용자가 가입 화면에서 직접 입력</td>
+      </tr>
+      <tr>
+        <td>서비스 이용 중 입력 (선택)</td>
+        <td>
+          목표(이름, 분류, 반복 요일), 목표 달성 체크 날짜,<br>
+          하루 기록(공부 시간·공부 내용, 운동 종류·운동 시간, 기분, 메모),<br>
+          타이머로 측정한 공부 시간(분)
+        </td>
+        <td>이용자가 앱에서 직접 입력하거나 타이머 사용 시 기록</td>
+      </tr>
+      <tr>
+        <td>자동 생성</td>
+        <td>계정 생성·로그인 일시, 접속 기록(IP 주소, 기기·브라우저 정보 등)</td>
+        <td>앱 이용 시 서버(Supabase) 시스템에서 자동 생성</td>
+      </tr>
+    </table>
+  </div>
+  <ul class="note">
+    <li>비밀번호는 되돌릴 수 없는 방식(해시)으로 암호화되어 저장되며, 운영자도 비밀번호를 알 수 없습니다.</li>
+    <li>가입 시 만 14세 이상인지 확인하지만, 생년월일 등 나이 정보는 수집하지 않습니다.</li>
+    <li>메모 등 자유롭게 적는 칸에는 다른 사람의 개인정보나 건강·신념 등 민감한 정보를 적지 않기를 권합니다.</li>
+  </ul>
+
+  <h2 id="purpose">2. 개인정보의 처리 목적과 근거</h2>
+  <ul>
+    <li>회원 식별, 로그인, 계정 관리(닉네임·비밀번호 변경, 계정 삭제)</li>
+    <li>목표·하루 기록 저장, 달성률·주간 리포트 제공, 타이머 공부 시간 기록</li>
+    <li>문의 응대, 서비스 오류 확인, 부정 이용 방지 및 보안 유지</li>
+  </ul>
+  <p>
+    운영자는 위 정보를 이용자와 맺은 서비스 이용계약을 이행하기 위해 필요한 범위에서
+    「개인정보 보호법」 제15조 제1항 제4호에 따라 처리합니다. 위 목적 외의 용도로는 이용하지 않으며,
+    목적이 바뀌면 미리 알리고 필요한 경우 동의를 받습니다.
+  </p>
+
+  <h2 id="period">3. 처리 및 보유 기간</h2>
+  <ul>
+    <li>회원 정보와 이용자가 입력한 기록: <strong>회원 탈퇴(계정 삭제) 시까지</strong> 보유하며, 탈퇴하면 지체 없이 파기합니다.</li>
+    <li>접속 기록: 서버 운영·보안 목적으로 Supabase 시스템에 남으며, Supabase의 로그 보관 기간이 지나면 자동으로 삭제됩니다.</li>
+    <li>앱은 유료 결제를 제공하지 않으므로, 다른 법령에 따라 따로 보존해야 하는 정보는 없습니다.</li>
+  </ul>
+
+  <h2 id="destroy">4. 파기 절차와 방법</h2>
+  <ul>
+    <li>이용자가 앱의 <strong>설정 → 계정 삭제</strong>를 실행하면 계정과 목표·체크·하루 기록 등 모든 기록이 데이터베이스에서 즉시 삭제되며 복구할 수 없습니다.</li>
+    <li>전자적 파일 형태의 정보는 복구·재생할 수 없는 방법으로 삭제합니다. 운영자가 별도로 보관하는 백업 사본은 없습니다.</li>
+    <li>이용자 기기에 저장된 로그인 상태와 타이머 진행 상태는 로그아웃하거나 앱을 삭제하면 지워집니다.</li>
+  </ul>
+
+  <h2 id="third">5. 제3자 제공</h2>
+  <p>운영자는 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만 법령에 특별한 규정이 있거나 수사기관이 법령에 정한 절차에 따라 요청하는 경우는 예외로 합니다.</p>
+
+  <h2 id="outsource">6. 처리 위탁</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>수탁자</th><th>위탁 업무</th></tr>
+      <tr><td>Supabase Pte. Ltd.</td><td>회원 인증(로그인), 데이터베이스 저장 및 서버 운영(클라우드 호스팅)</td></tr>
+    </table>
+  </div>
+  <p class="note">위탁 업체가 추가되거나 바뀌면(예: 인증 메일 발송 서비스 도입) 이 처리방침을 통해 알립니다.</p>
+
+  <h2 id="transfer">7. 국외 이전</h2>
+  <p>
+    앱은 서비스 제공(계약 이행)에 필요한 처리 위탁을 위해, 「개인정보 보호법」 제28조의8 제1항 제3호에 따라
+    아래와 같이 개인정보를 국외 법인에 이전합니다.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>이전받는 자</th><td>Supabase Pte. Ltd. (싱가포르 법인) · 연락처: <a href="mailto:privacy@supabase.com">privacy@supabase.com</a></td></tr>
+      <tr><th>이전 항목</th><td>1번에 적힌 모든 항목</td></tr>
+      <tr><th>이전 국가</th><td>
+        데이터 저장 위치는 <strong>대한민국(서울 리전)</strong>입니다. 다만 수탁자가 싱가포르 법인이므로,
+        서비스 운영·유지보수 과정에서 싱가포르 및 Supabase가 공개한
+        <a href="https://supabase.com/legal/subprocessors">하위 처리자 목록</a>상의 국가에서 접근될 수 있습니다.
+      </td></tr>
+      <tr><th>이전 시기·방법</th><td>앱을 이용할 때마다 암호화된 통신(HTTPS)으로 전송</td></tr>
+      <tr><th>이용 목적·보유 기간</th><td>6번의 위탁 업무 수행 · 회원 탈퇴 또는 위탁 계약 종료 시까지</td></tr>
+      <tr><th>거부 방법·효과</th><td>
+        앱의 모든 기능이 이 서버로 동작하므로, 국외 이전을 원하지 않으면 가입하지 않거나 설정에서 계정을 삭제하면 됩니다.
+        이 경우 앱을 이용할 수 없습니다.
+      </td></tr>
+    </table>
+  </div>
+
+  <h2 id="rights">8. 이용자의 권리와 행사 방법</h2>
+  <p>이용자는 언제든지 자신의 개인정보에 대해 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다.</p>
+  <ul>
+    <li><strong>앱에서 직접:</strong> 닉네임 수정·비밀번호 변경·계정 삭제(설정), 하루 기록 수정·삭제(기록 탭), 목표 수정·삭제(목표 탭)</li>
+    <li><strong>이메일 요청:</strong> 아래 13번의 연락처로 요청하면 지체 없이(10일 이내) 처리하고 결과를 알려드립니다.</li>
+    <li>법정대리인이나 위임을 받은 사람을 통해서도 요구할 수 있으며, 이때는 위임 사실을 확인할 수 있는 자료를 요청할 수 있습니다.</li>
+    <li>다른 법령에서 보존하도록 정한 정보 등 법에 정한 경우에는 요구가 제한될 수 있으며, 그 사유를 알려드립니다.</li>
+  </ul>
+
+  <h2 id="security">9. 안전성 확보 조치</h2>
+  <ul>
+    <li><strong>비밀번호 암호화:</strong> 비밀번호는 해시 방식으로 암호화되어 저장됩니다.</li>
+    <li><strong>전송 구간 암호화:</strong> 앱과 서버 사이의 모든 통신은 HTTPS로 암호화됩니다.</li>
+    <li><strong>접근 통제:</strong> 데이터베이스의 행 수준 보안(RLS)으로 각 이용자는 자신의 데이터에만 접근할 수 있습니다.</li>
+    <li><strong>관리자 키 보호:</strong> 관리자 권한 키는 앱에 포함하지 않고 서버에서만 사용합니다.</li>
+    <li><strong>접근 권한 최소화:</strong> 개인정보를 다루는 관리 계정은 운영자 1인으로 제한하고, 관리 계정에 2단계 인증을 적용합니다.</li>
+  </ul>
+
+  <h2 id="device">10. 기기 저장, 쿠키 및 기기 권한</h2>
+  <ul>
+    <li>앱은 쿠키, 광고 식별자, 외부 분석 도구를 사용하지 않습니다.</li>
+    <li>로그인 상태 유지 정보와 타이머 진행 상태는 이용자 기기 안에만 저장되며, 타이머 기록 중 서버로 보내는 것은 공부 시간(분)뿐입니다.</li>
+    <li><strong>알림 권한(선택):</strong> 타이머 종료를 알리는 데만 사용하며, 알림은 기기 안에서만 예약됩니다. 허용하지 않아도 앱을 이용할 수 있고, iPhone의 설정 → 알림에서 언제든 바꿀 수 있습니다.</li>
+  </ul>
+
+  <h2 id="auto">11. 자동화된 결정과 AI 기능</h2>
+  <p>
+    앱은 이용자의 권리나 의무에 영향을 주는 자동화된 결정을 하지 않습니다.
+    또한 현재 앱은 이용자의 정보를 인공지능(AI) 서비스 등 외부로 보내지 않습니다.
+    이후 이런 기능을 도입하게 되면 미리 이 처리방침을 고쳐 알리고, 필요한 경우 별도로 동의를 받습니다.
+  </p>
+
+  <h2 id="child">12. 만 14세 미만 아동</h2>
+  <p>
+    앱은 만 14세 이상만 가입할 수 있으며, 만 14세 미만 아동의 개인정보를 수집하지 않습니다.
+    만 14세 미만 아동이 가입한 사실을 알게 되면 해당 계정과 정보를 지체 없이 삭제합니다.
+  </p>
+
+  <h2 id="officer">13. 개인정보 보호책임자</h2>
+  <p>개인정보 처리와 관련한 문의, 불만, 피해 구제 요청은 아래로 연락해 주세요. 지체 없이 답변하고 처리하겠습니다.</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>성명</th><td><span class="todo">[운영자 성명]</span> (개인 개발자)</td></tr>
+      <tr><th>이메일</th><td><span class="todo">[문의 이메일]</span></td></tr>
+    </table>
+  </div>
+
+  <h2 id="remedy">14. 권익침해 구제 방법</h2>
+  <p>개인정보 침해에 대한 신고나 상담이 필요하면 아래 기관에 문의할 수 있습니다.</p>
+  <ul>
+    <li>개인정보분쟁조정위원회: (국번없이) 1833-6972 · <a href="https://www.kopico.go.kr">www.kopico.go.kr</a></li>
+    <li>개인정보침해신고센터(한국인터넷진흥원): (국번없이) 118 · <a href="https://privacy.kisa.or.kr">privacy.kisa.or.kr</a></li>
+    <li>대검찰청: (국번없이) 1301 · <a href="https://www.spo.go.kr">www.spo.go.kr</a></li>
+    <li>경찰청: (국번없이) 182 · <a href="https://ecrm.police.go.kr">ecrm.police.go.kr</a></li>
+  </ul>
+
+  <h2 id="change">15. 처리방침의 변경</h2>
+  <p>
+    이 처리방침의 내용이 추가·삭제·수정되면 시행 7일 전부터 이 페이지와 앱을 통해 알립니다.
+    이용자 권리에 중요한 변경이 있으면 시행 30일 전부터 알립니다.
+  </p>
+  <p class="meta">공고일: <span class="todo">2026년 ○월 ○일</span> · 시행일: <span class="todo">2026년 ○월 ○일</span></p>
+</main>
+</body>
+</html>
